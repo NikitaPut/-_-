@@ -1,0 +1,40 @@
+DATASETS:
+  TEST:
+    ROOT_DIR: ['G:/land-analyzer-model/data/outputs/valid/']
+  TRAIN:
+    ROOT_DIR: ['G:/land-analyzer-model/data/outputs/train/']
+DATA_LOADER:
+  NUM_WORKERS: 1
+  PIN_MEMORY: True
+INPUT:
+  IMAGE_SIZE: [512, 512]
+  PIXEL_MEAN: [123, 117, 104]
+  PIXEL_STD: [58, 57, 57]
+MODEL:
+  BACKBONE:
+    FREEZE: False
+    NAME: YOLOs
+    PRETRAINED: True
+  DEVICE: cpu
+  HEAD:
+    DROPOUT: 0.5
+    FREEZE: False
+    HIDDEN_DEPTH: 64
+    INPUT_DEPTH: [64, 128, 256, 384]
+    NAME: DeepLabV3_Custom
+    CLASS_LABELS: ['river', 'water']
+    PRETRAINED: True
+  META_ARCHITECTURE: MulticlassSegmentator
+OUTPUT_DIR: outputs/test
+SOLVER:
+  BATCH_SIZE: 4
+  LR: 0.001
+  LR_LAMBDA: 0.95
+  MAX_ITER: 2048
+  TYPE: Adam
+TEST:
+  BATCH_SIZE: 4
+TENSORBOARD:
+  BEST_SAMPLES_NUM: 32
+  WORST_SAMPLES_NUM: 32
+  METRICS_BIN_THRESHOLD: 0.85
